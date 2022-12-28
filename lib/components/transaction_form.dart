@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-class TransactionForm extends StatelessWidget {
-  TransactionForm({super.key});
+class TransactionForm extends StatefulWidget {
+  const TransactionForm(this.onSubmit, {super.key});
+  final Function(String, double)? onSubmit;
 
+  @override
+  State<TransactionForm> createState() => _TransactionFormState();
+}
+
+class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController titleController = TextEditingController();
+
   final TextEditingController valueController = TextEditingController();
 
   _submitForm() {
@@ -31,6 +38,7 @@ class TransactionForm extends StatelessWidget {
               controller: valueController,
               onSubmitted: (_) => _submitForm(),
               keyboardType:
+                  const TextInputType.numberWithOptions(decimal: true),
               decoration: const InputDecoration(labelText: 'Valor (R\$)'),
             ),
             Row(
@@ -42,10 +50,6 @@ class TransactionForm extends StatelessWidget {
                     'Nova transação',
                     style: TextStyle(color: Colors.purple),
                   ),
-                  onPressed: () {
-                    print(titleController.text);
-                    print(valueController.text);
-                  },
                 ),
               ],
             ),
