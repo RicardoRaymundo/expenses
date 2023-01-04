@@ -1,10 +1,12 @@
+import 'dart:math';
+
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionItem extends StatefulWidget {
   const TransactionItem({
-    Key? key,
+    required Key key,
     required this.transaction,
     required this.onRemove,
   }) : super(key: key);
@@ -13,13 +15,36 @@ class TransactionItem extends StatefulWidget {
   final Function(String p1) onRemove;
 
   @override
+  State<TransactionItem> createState() => _TransactionItemState();
+}
+
+class _TransactionItemState extends State<TransactionItem> {
+  static const colors = [
+    Colors.red,
+    Colors.purple,
+    Colors.cyanAccent,
+    Colors.pink,
+    Colors.amber,
+  ];
+
+  late Color _backgrounColor;
+
+  @override
+  void initState() {
+    super.initState();
+
+    int i = Random().nextInt(5);
+    _backgrounColor = colors[i];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: _backgrounColor,
           radius: 30,
           child: Padding(
             padding: const EdgeInsets.all(6.0),

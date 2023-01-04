@@ -1,7 +1,6 @@
 import 'package:expenses/components/transaction_item.dart';
 import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class TransactionList extends StatelessWidget {
   const TransactionList(
@@ -37,13 +36,17 @@ class TransactionList extends StatelessWidget {
               );
             },
           )
-        : ListView.builder(
+        : 
+        ListView.builder(
             itemCount: transactions.length,
             itemBuilder: ((context, index) {
               final transaction = transactions[index];
-              return TransactionItem(transaction: transaction, onRemove: onRemove);
+              return TransactionItem(key: GlobalObjectKey(transaction) ,transaction: transaction, onRemove: onRemove);
             }),
           );
+        // ListView(
+        //   children: transactions.map((tr) => TransactionItem(key: ValueKey(tr.id),transaction: tr, onRemove: onRemove)).toList(),
+        // );
   }
 }
 
