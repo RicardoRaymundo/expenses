@@ -2,7 +2,7 @@ import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TransactionItem extends StatelessWidget {
+class TransactionItem extends StatefulWidget {
   const TransactionItem({
     Key? key,
     required this.transaction,
@@ -25,7 +25,7 @@ class TransactionItem extends StatelessWidget {
             padding: const EdgeInsets.all(6.0),
             child: FittedBox(
               child: Text(
-                'R\$${transaction.value}',
+                'R\$${widget.transaction.value}',
                 style: const TextStyle(
                   color: Colors.white,
                 ),
@@ -34,13 +34,13 @@ class TransactionItem extends StatelessWidget {
           ),
         ),
         title: Text(
-          transaction.title,
+          widget.transaction.title,
           style: Theme.of(context).textTheme.headline6,
         ),
-        subtitle: Text(DateFormat('d MMM y').format(transaction.date)),
+        subtitle: Text(DateFormat('d MMM y').format(widget.transaction.date)),
         trailing: MediaQuery.of(context).size.width > 480
             ? TextButton.icon(
-                onPressed: () => onRemove(transaction.id),
+                onPressed: () => widget.onRemove(widget.transaction.id),
                 icon: Icon(
                   Icons.delete,
                   color: Theme.of(context).errorColor,
@@ -55,7 +55,7 @@ class TransactionItem extends StatelessWidget {
             : IconButton(
                 icon: const Icon(Icons.delete),
                 color: Theme.of(context).errorColor,
-                onPressed: () => onRemove(transaction.id),
+                onPressed: () => widget.onRemove(widget.transaction.id),
               ),
       ),
     );
